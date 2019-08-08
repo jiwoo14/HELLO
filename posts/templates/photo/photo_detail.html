@@ -1,0 +1,50 @@
+<body>
+    <a href="{% url 'photo' %}"><h1> PHOTOGRAPHER </h1></a>
+    <br>
+    <h1> DETAIL </h1>
+    <br>
+    <ul>
+        {{ photo_post_detail.title }}
+        {{ photo_post_detail.text }}
+        {% if photo_post_detail.image1 != '' %}
+        <img src="{{ photo_post_detail.image1.url }}" width = "350" alt = "{{ photo_post_detail.title }}">
+        {% endif %}
+        {% if photo_post_detail.image2 != '' %}
+        <img src="{{ photo_post_detail.image2.url }}" width = "350" alt = "{{ photo_post_detail.title }}">
+        {% endif %}
+        {% if photo_post_detail.image3 != '' %}
+        <img src="{{ photo_post_detail.image3.url }}" width = "350" alt = "{{ photo_post_detail.title }}">
+        {% endif %}
+        {% if photo_post_detail.image4 != '' %}
+        <img src="{{ photo_post_detail.image4.url }}" width = "350" alt = "{{ photo_post_detail.title }}">
+        {% endif %}
+        {% if photo_post_detail.image5 != '' %}
+        <img src="{{ photo_post_detail.image5.url }}" width = "350" alt = "{{ photo_post_detail.title }}">
+        {% endif %}
+    </ul>
+    <a href="{% url 'photo' %}"><button>Back</button></a>
+
+    {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+</body>
+
+</body>

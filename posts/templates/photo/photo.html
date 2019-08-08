@@ -1,0 +1,50 @@
+
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+
+<body>
+    <a href="{% url 'photo' %}"><h1> PHOTOGRAPHER </h1></a>
+    <br>
+    <h5> KEYWORDS </h5>
+    <a href="{% url 'photo_filter_orient' %}"><button> 동양풍 </button></a>
+    <a href="{% url 'photo_filter_western' %}"><button> 서양풍 </button></a>
+    <a href="{% url 'photo_filter_classic' %}"><button> 고전 </button></a>
+    <a href="{% url 'photo_filter_modern' %}"><button> 현대 </button></a>
+    
+    <br>
+    <a href="{% url 'photo_post' %}"><button>Upload Image</button></a>
+    <br>
+    <br>
+    <ul>
+        {% for photo in object_list %}
+            <a href="{% url 'photo_detail' photo.id %}"><img src="{{ photo.thumbnail.url }}" width="350" alt = "{{ photo.title }}"></a>
+            {{ photo.title }}
+            {{ photo.text|slice:":10" }}
+        {% endfor %}
+    </ul>
+
+    {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+</body>
